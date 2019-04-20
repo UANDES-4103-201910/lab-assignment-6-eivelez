@@ -8,8 +8,8 @@ class RegistrationsController < ApplicationController
 		if @registrations.save
 			redirect_to root_url, notice: "Registration done"
 		else
-			flash[:error]="There was an error on your request"
-			render "new"
+			flash[:notice]="There was an error on your request"
+			render action: "new"
 		end
 	end
 	
