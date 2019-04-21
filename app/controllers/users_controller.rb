@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    #complete this method
+    #User.destroy(params[:id])
   end
 
   private
