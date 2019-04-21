@@ -25,19 +25,43 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    #complete this method
-  end
+    user=User.new(user_params)
+    if user.save
+      flash[:notice]="new user was created"
+      redirect_to "/users"
+    else
+      flash[:notice]="new user creation ERROR, please try again"
+			redirect_to "/users"
+    end
+	end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
-  def update
-    #complete this method
-  end
+	def update
+		user=User.find(params[:id])
+		if user.update(user_params)
+			flash[:notice]="Update was completed"
+			redirect_to "/users"
+		else
+			flash[:notice]="Update action failed"
+			redirect_to "/users/"+params[:id].to_s+"/edit"
+		end
+	end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    #User.destroy(params[:id])
+		if $user.id.to_i==params[:id].to_i
+		  User.destroy(params[:id])
+			$user=nil
+			$helper=false
+			is_user_logged_in?
+			flash[:notice]="You deleted your own account"
+		else
+			User.destroy(params[:id])
+			redirect_to "/users"
+			is_user_logged_in?
+		end
   end
 
   private

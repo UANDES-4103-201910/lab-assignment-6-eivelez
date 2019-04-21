@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def is_user_logged_in?
     logged_in = false
-    if $helper
+    if $user
       logged_in = true
     end
 	    if logged_in then true else redirect_to root_path end
